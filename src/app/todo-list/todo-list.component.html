@@ -1,0 +1,88 @@
+<!--
+<div class="container m-auto w-75">
+    <h1 class="text-center">TodoList</h1>
+    <div class="row">
+      <div class="col-md">
+          <div class="todolist">
+           <h1>Todo List</h1>
+                <form [formGroup]="taskForm" (submit)="addTask(Ivalues)">
+                    <input formControlName="name" type="text" class="form-control add-todo" required placeholder="Agregar Tarea" (keyup)="onKey($event)">
+                    <button id="submitTaskadd" [disabled]="!taskForm.valid" class="btn btn-success" type="submit">Add task</button>
+                </form>
+                  <hr>
+                  <div>
+                      <ul *ngFor="let task of tasks">
+
+                          <li>
+                            {{task.id}} - {{task.name}}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" [checked]="task.completed" id="completado" (click)="addStatus(task, $event)" *ngIf="task.completed === false">
+                                <input class="form-check-input" type="checkbox" [checked]="task.completed" id="completado" (click)="addStatus(task, $event)" *ngIf="task.completed === true" checked>
+
+                                <label class="form-check-label" for="completado">
+                                  Completado
+                                </label>
+                              </div>
+                            <button class="btn btn-danger" (click)="deleteTask(task)">
+                                <i class="bi bi-trash-fill"></i>
+
+                              </button>
+                              <button class="btn btn-success" >
+                                <i class="bi bi-pencil-square"></i>
+
+                              </button>
+                              <div *ngIf="inputDivEdit">
+                                <input type="text" class="form-control add-todo" placeholder="Editar Tarea Nombre" (keyup)="onKey($event)">
+                              </div>
+                          </li>
+
+                      </ul>
+                  </div>
+          </div>
+      </div>
+  </div> -->
+<div class="container m-auto w-75">
+  <h1 class="text-center">TodoList</h1>
+  <div class="row">
+    <div class="col-md">
+      <div class="todolist">
+        <h1>Todo List</h1>
+        <form [formGroup]="taskForm" (submit)="addTask(name.value)">
+          <input
+            formControlName="name" #name
+            type="text"
+            class="form-control add-todo"
+            required
+            placeholder="Agregar Tarea"
+
+          />
+          <button
+            id="submitTaskadd"
+            [disabled]="!taskForm.valid"
+            class="btn btn-success"
+            type="submit"
+          >
+            Add task
+          </button>
+        </form>
+        <div class="right" *ngIf="todolist">
+
+          <h3>Task Todo List</h3>
+          <ul >
+            <li *ngFor="let dtodolist of todolist | async">
+              <p><input type="checkbox"  [checked]="dtodolist.completed" (change)="ToggleTodo(dtodolist, $event)">
+                 {{dtodolist.name}} <button class="btn btn-danger" (click)="deleteTask(dtodolist)">
+                <i class="bi bi-trash-fill"></i>
+
+              </button> </p>
+            </li>
+
+          </ul>
+          <div *ngIf="todolist" >
+            <button class="btn btn-danger" (click)="deleteAllTask()">Elminar todas las tareas </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
